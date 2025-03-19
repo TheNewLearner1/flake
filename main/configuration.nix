@@ -1,4 +1,4 @@
-# Edit this configuration file to define what should be installed on
+#Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
@@ -16,7 +16,14 @@ in
       ./hardware-configuration.nix
     ];
   services.xserver.enable = true;
+  services.flatpak.enable = true;
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+
+  };
   # Bootloader.
+
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -27,7 +34,8 @@ in
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   programs.fish.enable = true;
   programs.ssh.askPassword = "";
- # Enable networking
+  programs.xwayland.enable = true;
+# Enable networking
   networking.networkmanager.enable = true;
   # Set your time zone.
   time.timeZone = "Asia/Kathmandu";
@@ -49,7 +57,6 @@ in
     packages = with pkgs; [];
   };
   # Allow unfree packages
-  programs.sway.enable = true;
   users.defaultUserShell = pkgs.fish;
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -57,18 +64,25 @@ in
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
      stable.vim
+     stable.wimlib
      unstable.git
      stable.wofi
      stable.tmux
      unstable.kitty
      unstable.xfce.thunar
      stable.yazi
+     stable.ntfs3g
      stable.speechd
+     stable.kdePackages.partitionmanager
+     stable.flatpak
+     stable.rpcs3
      stable.cmatrix
+     stable.woeusb
      unstable.sway
+     stable.exfat
      unstable.foot
-     stable.webcord
-     stable.gnome-disk-utility
+     stable.unetbootin
+     unstable.gparted
      stable.fastfetch
      stable.zellij
      stable.waybar
@@ -82,8 +96,8 @@ in
      stable.brightnessctl
      unstable.firefox
      unstable.krita
-     stable.home-manager
      stable.hyprpaper
+     stable.wineWowPackages.waylandFull
      stable.fish
      unstable.hyprshot
      stable.rustc
@@ -94,6 +108,7 @@ in
      stable.fzf
      stable.p7zip
      stable.wl-clipboard
+     stable.python312Packages.qtile
      old.hyprland
      stable.btop
      unstable.anyrun
